@@ -29,4 +29,9 @@ public interface InsurancePolicyDelegate {
             @Valid InsurancePolicyRequest insurancePolicyRequest){
         return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
     }
+
+    default ResponseEntity<Void> deleteInsurancePolicy(
+            @Positive Long id){
+        return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+    }
 }

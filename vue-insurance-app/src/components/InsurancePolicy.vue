@@ -9,22 +9,22 @@
       <form @submit.prevent="saveInsurancePolicy">
         <div>
           <label>Name:</label>
-          <input type="text" v-model="entity.name" required />
+          <input type="text" v-model="policy.name" required />
         </div>
         <div>
           <label>Status:</label>
-          <select v-model="entity.status">
+          <select v-model="policy.status">
             <option value="ACTIVE">ACTIVE</option>
             <option value="INACTIVE">INACTIVE</option>
           </select>
         </div>
         <div>
           <label>Start Date:</label>
-          <input type="date" v-model="entity.startDate" required />
+          <input type="date" v-model="policy.startDate" required />
         </div>
         <div>
           <label>End Date:</label>
-          <input type="date" v-model="entity.endDate" required />
+          <input type="date" v-model="policy.endDate" required />
         </div>
         <button type="submit">{{ isEdit ? "Update" : "Save" }}</button>
         <button type="button" @click="resetForm">Clear</button>
@@ -52,7 +52,7 @@
             <td>{{ item.endDate }}</td>
             <td>
               <button @click="editInsurancePolicy(item)">Edit</button>
-              <button @click="deleteEntity(item.id)">Delete</button>
+              <button @click="deleteInsurancePolicy(item.id)">Delete</button>
             </td>
           </tr>
         </tbody>
@@ -77,7 +77,7 @@ export default defineComponent({
   name: "InsurancePolicy",
   setup() {
     const policies = ref<InsurancePolicy[]>([]);
-    const entity = ref<InsurancePolicy>({
+    const policy = ref<InsurancePolicy>({
       id: null,
       name: "",
       status: "ACTIVE",
@@ -86,35 +86,36 @@ export default defineComponent({
     });
     const isEdit = ref(false);
 
+    const BASE_URL = "http://localhost:8080";
     const fetchInsurancePolicies = async () => {
-      const response = await axios.get("http://localhost:8080/insurancepolicies");
+      const response = await axios.get(BASE_URL + "/insurancepolicies");
       policies.value = response.data;
     };
 
     const saveInsurancePolicy = async () => {
       if (isEdit.value) {
-        await axios.patch(`http://localhost:8080/insurancepolicies/${entity.value.id}`, entity.value);
+        await axios.patch(BASE_URL + `/insurancepolicies/${policy.value.id}`, policy.value);
       } else {
-        await axios.post("http://localhost:8080/insurancepolicies", entity.value);
+        await axios.post(BASE_URL + `/insurancepolicies`, policy.value);
       }
       fetchInsurancePolicies();
       resetForm();
     };
 
     const editInsurancePolicy = (item: InsurancePolicy) => {
-      entity.value = { ...item };
+      policy.value = { ...item };
       isEdit.value = true;
     };
 
-    const deleteEntity = async (id: number | null) => {
+    const deleteInsurancePolicy = async (id: number | null) => {
       if (id !== null) {
-        await axios.delete(`"http://localhost:8080/insurancepolicies/${id}`);
+        await axios.delete(BASE_URL + `/insurancepolicies/${id}`);
         fetchInsurancePolicies();
       }
     };
 
     const resetForm = () => {
-      entity.value = {
+      policy.value = {
         id: null,
         name: "",
         status: "ACTIVE",
@@ -128,12 +129,12 @@ export default defineComponent({
 
     return {
       policies,
-      entity,
+      policy,
       isEdit,
       fetchInsurancePolicies,
       saveInsurancePolicy,
       editInsurancePolicy,
-      deleteEntity,
+      deleteInsurancePolicy,
       resetForm,
     };
   },

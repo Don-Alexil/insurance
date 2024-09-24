@@ -29,6 +29,11 @@ public class InsurancePolicyServiceImpl implements InsurancePolicyService {
     }
 
     @Override
+    public void deleteById(Long id) {
+        this.insurancePolicyRepository.deleteById(id);
+    }
+
+    @Override
     public List<InsurancePolicy> findAll() {
         return  this.insurancePolicyRepository.findAll();
     }

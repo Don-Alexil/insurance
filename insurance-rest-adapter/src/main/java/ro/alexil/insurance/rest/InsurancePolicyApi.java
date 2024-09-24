@@ -46,7 +46,7 @@ public interface InsurancePolicyApi {
 
     @Operation(summary = "Create an insurance policy")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Insurance policy created created",
+            @ApiResponse(responseCode = "200", description = "Insurance policy created",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = InsurancePolicyResponse.class)) })})
     @PostMapping("/insurancepolicies")
@@ -57,7 +57,7 @@ public interface InsurancePolicyApi {
 
     @Operation(summary = "Update an insurance policy")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Insurance policy created created",
+            @ApiResponse(responseCode = "200", description = "Insurance policy updated",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = InsurancePolicyResponse.class)) })})
     @PatchMapping("/insurancepolicies/{id}")
@@ -66,5 +66,17 @@ public interface InsurancePolicyApi {
             @PathVariable Long id,
             @Validated @RequestBody InsurancePolicyRequest insurancePolicyRequest){
         return getDelegate().updateInsurancePolicy(id, insurancePolicyRequest);
+    }
+
+    @Operation(summary = "Delete an insurance policy")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Insurance policy deleted",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = InsurancePolicyResponse.class)) })})
+    @DeleteMapping("/insurancepolicies/{id}")
+    default ResponseEntity<Void> deleteInsurancePolicy(
+            @Parameter(description = "id of the insurance policy to be deleted")
+            @PathVariable Long id){
+        return getDelegate().deleteInsurancePolicy(id);
     }
 }

@@ -2,14 +2,13 @@ package ro.alexil.insurance.rest;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import ro.alexil.insurance.domain.InsurancePolicy;
 import ro.alexil.insurance.domain.InsurancePolicyService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class InsurancePolicyDelegateImpl implements InsurancePolicyDelegate {
@@ -55,6 +54,12 @@ public class InsurancePolicyDelegateImpl implements InsurancePolicyDelegate {
                         insurancePolicyRequest.endDate()
                 ).withId(id));
         return ResponseEntity.ok(map(insurancePolicy));
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteInsurancePolicy(@Positive Long id){
+        this.insurancePolicyService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
     private InsurancePolicyResponse map(InsurancePolicy insurancePolicy) {

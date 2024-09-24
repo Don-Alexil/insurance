@@ -1,6 +1,7 @@
 package ro.alexil.insurance.rest;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,6 +22,7 @@ import java.time.LocalDateTime;
 
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -58,7 +60,7 @@ class InsurancePolicyControllerTest {
           "startDate" : "2024-10-20",
           "endDate" : "2025-11-15"
         }"""})
-    void posAccountsShouldReturnCreatedAccount(String content) throws Exception {
+    void postInsurancePolicyShouldReturnCreatedInsurancePolicy(String content) throws Exception {
         InsurancePolicyRequest insurancePolicyRequest = new InsurancePolicyRequest("Health Insurance",
                 PolicyStatus.ACTIVE,
                 LocalDate.parse("2024-10-20"), LocalDate.parse("2025-11-15"));
@@ -72,6 +74,16 @@ class InsurancePolicyControllerTest {
                         .accept(MediaType.APPLICATION_JSON))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(jsonPath("$.name").value(insurancePolicyResponse.name()));
+    }
+
+    @Test
+    void deleteInsurancePolicyShouldReturnNoContent() throws Exception {
+        Long id = 1L;
+        when(serviceDelegate.deleteInsurancePolicy(eq(id))).thenReturn(ResponseEntity.noContent().build());
+        this.mockMvc.perform(delete("/insurancepolicies/" + id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print()).andExpect(status().isNoContent());
     }
 
 }

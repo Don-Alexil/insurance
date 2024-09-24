@@ -67,7 +67,7 @@ tests: ## Test insurance!
 	echo "Created insurance policy : $$INSURANCE"; \
 	curl -s -H 'Content-Type: application/json' -X GET http://localhost:8080/insurancepolicies/$$INSURANCE | jq; \
 	echo "Update insurance" && \
-	curl -s -H 'Content-Type: application/json' -d '{"toto":30, "name": "uuidgen", "status": "ACTIVE", "startDate": "2024-10-20", "endDate": "2025-09-30"}' -X PATCH http://localhost:8080/insurancepolicies/$$INSURANCE | jq; \
+	curl -s -H 'Content-Type: application/json' -d '{"name": "uuidgen", "status": "ACTIVE", "startDate": "2024-10-20", "endDate": "2025-09-30"}' -X PATCH http://localhost:8080/insurancepolicies/$$INSURANCE | jq; \
     echo "List insurances" && \
     curl -s -H 'Content-Type: application/json' -X GET http://localhost:8080/insurancepolicies | jq
 

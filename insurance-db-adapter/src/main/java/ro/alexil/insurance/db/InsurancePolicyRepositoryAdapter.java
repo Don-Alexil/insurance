@@ -59,6 +59,11 @@ public class InsurancePolicyRepositoryAdapter implements InsurancePolicyReposito
     }
 
     @Override
+    public void deleteById(Long id) {
+        this.insurancePolicyDbRepository.deleteById(id);
+    }
+
+    @Override
     public List<InsurancePolicy> findAll() {
         return this.insurancePolicyDbRepository.findAll()
                 .stream().map(this::map).toList();

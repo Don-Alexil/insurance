@@ -10,6 +10,8 @@ public interface InsurancePolicyService {
 
     InsurancePolicy findById(Long id);
 
+    void deleteById(Long id);
+
     List<InsurancePolicy> findAll();
 
 
