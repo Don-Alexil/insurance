@@ -26,3 +26,4 @@ Create an application that allows you to:
 5. *make stop* - stop the applcation
 6. optional: *make tests* in order to test the endpoints
    
+Run the fron app on : http://localhost:8081
