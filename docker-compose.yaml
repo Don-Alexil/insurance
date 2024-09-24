@@ -1,0 +1,50 @@
+services:
+  vue_client:
+    image: ro.alexil/insurance-vue-client
+    container_name: insurance_vue_client
+
+    ### MYSQL : NETWORKS
+    networks:
+      - apps
+
+    ### MYSQL : PORTS
+    ports:
+      - "8081:80"
+
+  rest_api:
+    image: ro.alexil/insurance-rest-api
+    container_name: insurance_rest_api
+
+    ### MYSQL : NETWORKS
+    networks:
+      - apps
+
+    ### MYSQL : PORTS
+    ports:
+      - "8080:8080"
+
+  mysql:
+    image: mysql:8.0
+    container_name: insurance_mysql
+
+    ### MYSQL : NETWORKS
+    networks:
+      - apps
+
+    ### MYSQL : ENVIRONMENTS
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      TZ: Europe/Paris
+
+    ### MYSQL : PORTS
+    ports:
+      - "3306:3306"
+
+      ### MARIADB : VOLUMES
+    volumes:
+      - ~/poc/data/mysql:/var/lib/mysql
+
+networks:
+  apps:
+    name: insurance_apps
+

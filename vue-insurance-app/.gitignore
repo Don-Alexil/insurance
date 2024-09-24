@@ -1,0 +1,44 @@
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Dependency directories
+node_modules/
+
+# Production build
+/dist
+
+# Cache and temporary files
+/.cache
+/.temp
+/.output
+/.vite
+/.vitepress
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Static resources
+.DS_Store
+Thumbs.db
+
+# Test files
+/test-results
+/test-output
+
+# Local development server and build tools
+/.nuxt
+/.nuxt-dist
+/.next
+/out
+.storybook-out
+
+# Ignore dotenv environment files
+.env
+.env.*
+.env.local
