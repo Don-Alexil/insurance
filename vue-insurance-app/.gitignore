@@ -16,6 +16,8 @@ node_modules/
 /.output
 /.vite
 /.vitepress
+package-lock.json
+*buildinfo
 
 # Editor directories and files
 .idea/
