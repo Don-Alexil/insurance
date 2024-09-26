@@ -19,16 +19,12 @@ public record InsurancePolicy(
         LocalDateTime updateDate) {
 
     public InsurancePolicy {
-        LocalDate now = LocalDate.now();
-
-        if (startDate.isBefore(now) || endDate.isBefore(now)) {
-            throw new InsurancePolicyInvalidException("startDate of endDate cannot be in the past");
-        }
 
         if(endDate.isBefore(startDate)){
             throw new InsurancePolicyInvalidException("endDate must be after startDate");
         }
     }
+
     public static InsurancePolicy newInsurancePolicy(String name,
                                                      PolicyStatus status, LocalDate startDate,
                                                      LocalDate endDate) {

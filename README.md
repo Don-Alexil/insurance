@@ -25,5 +25,7 @@ Create an application that allows you to:
 4. *make run* - start the compose stack
 5. *make stop* - stop the applcation
 6. optional: *make tests* in order to test the endpoints
+
+Run app  at http://localhost:8081
    
 Run the fron app on : http://localhost:8081
